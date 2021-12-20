@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import agent from "../../app/api/agent";
 import { Product } from "../../app/layout/models/Products";
 import ProductList from "./ProductList";
 
 export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/api/products')
-            .then(response => response.json())
-            .then(data => setProducts(data));
-    }, []);
+  useEffect(() => {
+    agent.Catalog.list().then((products) => {
+      setProducts(products);
+    });
+  },[setProducts]);
   return (
     <>
       <h4>Catalog</h4>
