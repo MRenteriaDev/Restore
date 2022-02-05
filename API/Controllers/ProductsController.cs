@@ -20,7 +20,10 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            return await _context.Products.OrderBy(x => x.Price).ToListAsync();
+            return await _context.Products
+                .OrderBy(x => x.Price)
+                .ThenBy(x => x.Name)
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]

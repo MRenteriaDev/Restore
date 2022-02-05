@@ -41,7 +41,7 @@ export default function ProductDetails() {
           }}
         />
       </Grid>
-      <Grid>
+      <Grid item xs={6} >
         <Typography variant="h3">{product.name}</Typography>
         <Divider
           sx={{
