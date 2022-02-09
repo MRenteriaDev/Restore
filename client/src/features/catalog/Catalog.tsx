@@ -14,7 +14,7 @@ export default function Catalog() {
       .then((products) => {
         setProducts(products);
       })
-      .catch((err) => console.log(err.message))
+      .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, [setProducts]);
 
