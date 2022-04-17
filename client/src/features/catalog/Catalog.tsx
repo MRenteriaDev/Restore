@@ -1,27 +1,28 @@
 import {
   Checkbox,
-  FormControl,
   FormControlLabel,
   FormGroup,
-  FormLabel,
   Grid,
   Pagination,
   Paper,
-  Radio,
-  RadioGroup,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
+import AppPagination from "../../app/components/AppPagination";
+import CheckBoxButtons from "../../app/components/CheckBoxButtons";
+import RadioButtonGroup from "../../app/components/RadioButtonGroup";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import {
   fetchFiltersAsync,
   fetchProductsAsync,
   productSelector,
+  setPageNumber,
+  setProductsParams,
 } from "./catalogSlice";
 import ProductList from "./ProductList";
+import ProductSerch from "./ProductSearch";
 
 const sortOptions = [
   { value: "name", label: "Alphabetical" },
@@ -31,8 +32,14 @@ const sortOptions = [
 
 export default function Catalog() {
   const products = useAppSelector(productSelector.selectAll);
-  const { productsLoaded, status, filtersLoaded, brands, types } =
-    useAppSelector((state) => state.catalog);
+  const {
+    productsLoaded,
+    filtersLoaded,
+    brands,
+    types,
+    productParams,
+    metaData,
+  } = useAppSelector((state) => state.catalog);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -43,66 +50,55 @@ export default function Catalog() {
     if (!filtersLoaded) dispatch(fetchFiltersAsync());
   }, [dispatch, filtersLoaded]);
 
-  if (status.includes("pending"))
-    return <LoadingComponent message="Loading Products" />;
+  if (!filtersLoaded) return <LoadingComponent message="Loading Products" />;
 
   return (
     <Grid container spacing={4}>
       <Grid item xs={3}>
         <Paper sx={{ mb: 4 }}>
-          <TextField label="Search Produtcs" variant="outlined" fullWidth />
+          <ProductSerch />
         </Paper>
         <Paper sx={{ mb: 2, p: 2 }}>
-          <FormControl>
-            <RadioGroup>
-              {sortOptions.map(({ value, label }) => (
-                <FormControlLabel
-                  value={value}
-                  control={<Radio />}
-                  label={label}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
+          <RadioButtonGroup
+            selectedValue={productParams.orderBy}
+            options={sortOptions}
+            onChange={(e) =>
+              dispatch(setProductsParams({ orderBy: e.target.value }))
+            }
+          />
         </Paper>
         <Paper sx={{ mb: 2, p: 2 }}>
-          <FormGroup>
-            {brands.map((brand) => (
-              <FormControlLabel
-                control={<Checkbox />}
-                label={brand}
-                key={brand}
-              />
-            ))}
-          </FormGroup>
+          <CheckBoxButtons
+            items={brands}
+            checked={productParams.brands}
+            onChange={(items: string[]) =>
+              dispatch(setProductsParams({ brands: items }))
+            }
+          />
         </Paper>
         <Paper sx={{ mb: 2, p: 2 }}>
-          <FormGroup>
-            {types.map((type) => (
-              <FormControlLabel
-                control={<Checkbox />}
-                label={type}
-                key={type}
-              />
-            ))}
-          </FormGroup>
+          <CheckBoxButtons
+            items={types}
+            checked={productParams.types}
+            onChange={(items: string[]) =>
+              dispatch(setProductsParams({ types: items }))
+            }
+          />
         </Paper>
       </Grid>
       <Grid item xs={9}>
         <ProductList products={products} />
       </Grid>
       <Grid item xs={3} />
-      <Grid item xs={9}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography>
-            Displaying 1-6 of 20 items
-          </Typography>
-          <Pagination  color="secondary" size="large" count={10} page={2} />
-        </Box>
+      <Grid item xs={9} sx={{ mb: 2 }}>
+        {metaData && (
+          <AppPagination
+            metaData={metaData}
+            onPageChange={(page: number) =>
+              dispatch(setProductsParams({ pageNumber: page }))
+            }
+          />
+        )}
       </Grid>
     </Grid>
   );
