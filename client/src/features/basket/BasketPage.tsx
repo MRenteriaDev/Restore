@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/store/configureStore";
 import { currencyFormat } from "../../app/util/util";
 import {
-  addBaskteItemAsync,
+  addBasketItemAsync,
   removeBasketItemAsync,
 } from "./basketSlice";
 import BasketSummary from "./BasketSummary";
@@ -85,7 +85,7 @@ export default function BasketPage() {
                     loading={status === "pendingAddItem" + item.productId}
                     onClick={() =>
                       dispatch(
-                        addBaskteItemAsync({ productId: item.productId })
+                        addBasketItemAsync({ productId: item.productId })
                       )
                     }
                     color="secondary"

@@ -17,7 +17,7 @@ import NotFound from "../../app/errors/NotFound";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useAppSelector } from "../../app/store/configureStore";
 import {
-  addBaskteItemAsync,
+  addBasketItemAsync,
   removeBasketItemAsync,
 } from "../basket/basketSlice";
 import { fetchProductAsync, productSelector } from "./catalogSlice";
@@ -49,7 +49,7 @@ export default function ProductDetails() {
     if (!item || quantity > item.quantity) {
       const updateQuantity = item ? quantity - item.quantity : quantity;
       dispatch(
-        addBaskteItemAsync({
+        addBasketItemAsync({
           productId: product?.id!,
           quantity: updateQuantity,
         })

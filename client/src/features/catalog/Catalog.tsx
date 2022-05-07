@@ -1,13 +1,7 @@
 import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
   Grid,
-  Pagination,
   Paper,
-  Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { useEffect } from "react";
 import AppPagination from "../../app/components/AppPagination";
 import CheckBoxButtons from "../../app/components/CheckBoxButtons";
@@ -18,7 +12,6 @@ import {
   fetchFiltersAsync,
   fetchProductsAsync,
   productSelector,
-  setPageNumber,
   setProductsParams,
 } from "./catalogSlice";
 import ProductList from "./ProductList";

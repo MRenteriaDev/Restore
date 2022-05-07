@@ -12,7 +12,7 @@ import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import { Product } from "../../app/layout/models/Products";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import { addBaskteItemAsync } from "../basket/basketSlice";
+import { addBasketItemAsync } from "../basket/basketSlice";
 
 interface Props {
   product: Product;
@@ -56,7 +56,7 @@ export default function ProductCard({ product }: Props) {
         <LoadingButton
           loading={status === "pendingAddItem" + product.id}
           onClick={() =>
-            dispatch(addBaskteItemAsync({ productId: product.id }))
+            dispatch(addBasketItemAsync({ productId: product.id }))
           }
           size="small"
         >
