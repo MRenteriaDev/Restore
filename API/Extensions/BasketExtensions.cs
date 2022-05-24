@@ -1,5 +1,6 @@
 using System.Linq;
 using API.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.DTOs
 {
@@ -22,6 +23,11 @@ namespace API.DTOs
                     Quantity = item.Quantity
                 }).ToList()
             };
+        }
+
+        public static IQueryable<Basket> RetrieveBasketBasketWithItems(this IQueryable<Basket> query, string buyerId)
+        {
+            return query.Include(i => i.Items).ThenInclude(p => p.Product).Where(x => x.BuyerId == buyerId);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using Api.Entities;
 using API.Data;
+using API.Entities;
 using API.Middleware;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,7 +71,7 @@ namespace API
             {
                 opt.User.RequireUniqueEmail = true;
             })
-                .AddRoles<IdentityRole>()
+                .AddRoles<Role>()
                 .AddEntityFrameworkStores<StoreContext>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>

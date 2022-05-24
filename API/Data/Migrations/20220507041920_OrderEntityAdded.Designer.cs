@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220507041920_OrderEntityAdded")]
+    partial class OrderEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -165,14 +167,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "18210b67-6fe0-44fc-94e6-f23d5776a2c7",
+                            ConcurrencyStamp = "72c10180-b898-42f6-9aee-518542cc8bef",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "d5206539-c92a-4f3e-ac6a-34d503a11790",
+                            ConcurrencyStamp = "56680ef2-15d1-402a-a2de-edd5d15cb681",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -442,14 +444,14 @@ namespace API.Data.Migrations
                             b1.Property<int>("OrderItemId")
                                 .HasColumnType("INTEGER");
 
+                            b1.Property<int>("Id")
+                                .HasColumnType("INTEGER");
+
                             b1.Property<string>("Name")
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("PictureUrl")
                                 .HasColumnType("TEXT");
-
-                            b1.Property<int>("ProductId")
-                                .HasColumnType("INTEGER");
 
                             b1.HasKey("OrderItemId");
 
