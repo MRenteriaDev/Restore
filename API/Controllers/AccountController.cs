@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Api.Entities;
 using API.Data;
@@ -75,7 +76,7 @@ namespace API.Controllers
         [HttpGet("currentUser")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-           var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var userBasket = await RetrieveBasket(User.Identity.Name);
 
@@ -86,6 +87,17 @@ namespace API.Controllers
                 Basket = userBasket?.MapBasketToDto()
             };
         }
+
+        [Authorize]
+        [HttpGet("savedAddress")]
+        public async Task<ActionResult<UserAddress>> GetSavedAddress()
+        {
+            return await _userManager.Users
+                    .Where(x => x.UserName == User.Identity.Name)
+                    .Select(user => user.Address)
+                    .FirstOrDefaultAsync();
+        }
+
 
         private async Task<Basket> RetrieveBasket(string buyerId)
         {
