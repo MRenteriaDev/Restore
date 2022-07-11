@@ -6,23 +6,16 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {
-  Alert,
-  AlertTitle,
-  List,
-  ListItem,
-  ListItemText,
   Paper,
 } from "@mui/material";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import agent from "../../app/api/agent";
-import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Register() {
   const history = useHistory();
-  const [validationErrors, setValidationErrors] = useState([]);
 
   const {
     register,
@@ -117,18 +110,6 @@ export default function Register() {
           error={!!errors.password}
           helperText={errors?.password?.message}
         />
-        {validationErrors.length > 0 && (
-          <Alert severity="error">
-            <AlertTitle>Validation Errors</AlertTitle>
-            <List>
-              {validationErrors.map((error) => (
-                <ListItem key={error}>
-                  <ListItemText>{error}</ListItemText>
-                </ListItem>
-              ))}
-            </List>
-          </Alert>
-        )}
         <LoadingButton
           disabled={!isValid}
           loading={isSubmitting}

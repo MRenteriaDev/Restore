@@ -1,5 +1,4 @@
 import { Typography, Grid, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/store/configureStore";
 import BasketSummary from "./BasketSummary";
