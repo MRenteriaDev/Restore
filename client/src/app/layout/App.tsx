@@ -21,6 +21,7 @@ import { useAppDispatch } from "../store/configureStore";
 import PrivateRoute from "./PrivateRoute";
 import Orders from "../../features/order/Orders";
 import CheckoutWrapper from "../../features/checkout/CheckoutWrapper";
+import Inventory from "../../features/admin/Inventory";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -76,6 +77,7 @@ function App() {
               <Route path="/basket" component={BasketPage} />
               <PrivateRoute path="/checkout" component={CheckoutWrapper} />
               <PrivateRoute path="/orders" component={Orders} />
+              <PrivateRoute path="/inventory" component={Inventory} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route component={NotFound} />
